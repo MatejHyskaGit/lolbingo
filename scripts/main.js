@@ -1,56 +1,93 @@
 let gridItems = document.querySelectorAll('.grid-item');
-console.log(gridItems);
+const [UP, RIGHT, DOWN, LEFT, RUP, RDOWN, LUP, LDOWN] = [-5, 1, 5, -1, -4, 6, -6, 4];
+//console.log(gridItems);
 const myPopup = new Popup({
     id: "bingoPopup",
     title: "Bingo!",
     content: `
-        Congratulations! You've got Bingo!`
+        Congratulations! You've got bingo!`
 });
+
+const newGameConfirmation1 = new Popup({
+    id: "newGamePopup",
+    title: "New Game Confirmation",
+    content: `Are you sure you want to start a new game?
+      {btn-red-button}[No]{btn-green-button}[Yes]`,
+
+});
+
 let bingo = false;
 let idChecked = new Set([13]);
-gridItems.forEach(item => {
-    item.addEventListener('click', () => {
-        item.classList.toggle('clicked');
-        if (item.classList.contains('clicked') && !bingo) {
-            idChecked.add(parseInt(item.id));
-            console.log(idChecked);
-            if (checkBingo(item.id)) {
-                myPopup.show();
-                bingo = true;
-            }
-        } else {
-            idChecked.delete(parseInt(item.id));
-        }
-    });
+
+let newGameButton = document.getElementById("newGame");
+
+const newGameConfirmation = new Popup({
+    id: "override",
+    title: "New Game Confirmation",
+    content: `Are you sure you want to start a new game?
+      custom-space-out big-margin§{btn-refuse-override}[No]{btn-accept-override}[Yes]`,
+    sideMargin: "1.5em",
+    fontSizeMultiplier: "1.2",
+    backgroundColor: "#FFFFFF",
+    allowClose: false,
+    css: `
+    .popup.override .custom-space-out {
+        display: flex;
+        justify-content: center;
+        gap: 1.5em;
+    }
+    .refuse-override{
+        background-color: #FFCCCC;
+    }
+    .accept-override{
+        background-color: #CCFFCC;
+    }`,
+    loadCallback: () => {
+        /* button functionality */
+        document.getElementsByClassName("refuse-override")[0].onclick =
+            () => {
+
+                newGameConfirmation.hide();
+                // user wants to use local data
+            };
+
+        document.getElementsByClassName("accept-override")[0].onclick =
+            () => {
+                newGame();
+                newGameConfirmation.hide();
+                // user wants to use cloud data
+            };
+    },
 });
-const [UP, RIGHT, DOWN, LEFT, RUP, RDOWN, LUP, LDOWN] = [-5, 1, 5, -1, -4, 6, -6, 4];
+
+
 let checkBingo = (id) => {
     let bingoCount = { value: 1 }; // Use an object to hold the count
     // Check up and down
     checkBingoRecursive(id, bingoCount, UP);
     checkBingoRecursive(id, bingoCount, DOWN);
-    console.log("Bingo Count after up down check:", bingoCount);
+    //console.log("Bingo Count after up down check:", bingoCount);
     if (bingoCount.value == 5) return true;
 
     // Check left and right
     bingoCount = { value: 1 }; // Reset count for horizontal check
     checkBingoRecursive(id, bingoCount, LEFT);
     checkBingoRecursive(id, bingoCount, RIGHT);
-    console.log("Bingo Count after left right check:", bingoCount);
+    //console.log("Bingo Count after left right check:", bingoCount);
     if (bingoCount.value == 5) return true;
 
     // Check rUP and lDOWN
     bingoCount = { value: 1 }; // Reset count for horizontal check
     checkBingoRecursive(id, bingoCount, RUP);
     checkBingoRecursive(id, bingoCount, LDOWN);
-    console.log("Bingo Count after rUP lDOWN check:", bingoCount);
+    //console.log("Bingo Count after rUP lDOWN check:", bingoCount);
     if (bingoCount.value == 5) return true;
 
     // Check rDOWN and lUP
     bingoCount = { value: 1 }; // Reset count for horizontal check
     checkBingoRecursive(id, bingoCount, RDOWN);
     checkBingoRecursive(id, bingoCount, LUP);
-    console.log("Bingo Count after rDOWN lUP check:", bingoCount);
+    //console.log("Bingo Count after rDOWN lUP check:", bingoCount);
     if (bingoCount.value == 5) return true;
     return false;
 };
@@ -59,12 +96,88 @@ let checkBingoRecursive = (id, bingoCount, dir) => {
     if (idChecked.has(id)) {
         bingoCount.value++;
     }
-    console.log("Checking ID:", id, "Bingo Count:", bingoCount, "Direction:", dir);
+    //console.log("Checking ID:", id, "Bingo Count:", bingoCount, "Direction:", dir);
     // Check in the specified direction
     let nextId = parseInt(id) + parseInt(dir);
-    console.log("Next ID:", nextId, "hasId:", idChecked.has(nextId));
+    //console.log("Next ID:", nextId, "hasId:", idChecked.has(nextId));
     if (idChecked.has(nextId)) {
         bingoCount.value = checkBingoRecursive(nextId, bingoCount, dir);
     }
     return bingoCount.value;
 };
+
+let newGame = () => {
+    bingoNumbers = Array.from({ length: 30 }, (_, i) => i + 1);
+
+    for (let i = 0; i < bingoNumbers.length; i++) {
+        let rand = Math.floor(Math.random() * bingoNumbers.length);
+        [bingoNumbers[i], bingoNumbers[rand]] = [bingoNumbers[rand], bingoNumbers[i]];
+    }
+    idChecked = new Set([13]); // Reset checked IDs, keeping the center one checked
+    localStorage.setItem("bingoChecked", JSON.stringify(Array.from(idChecked)));
+    Array.from(document.getElementsByClassName("grid-item clicked")).forEach(element => {
+        element.classList.remove("clicked");
+    });
+    bingo = false;
+    localStorage.setItem("bingo", JSON.stringify(bingo));
+    //console.log("Shuffled:", bingoNumbers);
+    setGame();
+    
+}
+
+let setGame = () => {
+    localStorage.setItem("bingoNumbers", JSON.stringify(bingoNumbers));
+
+    let index = 0;
+    gridItems.forEach(element => {
+        element.src = "../images/" + bingoNumbers[index] + ".png";
+        index++;
+    });
+
+    idChecked = new Set(JSON.parse(localStorage.getItem("bingoChecked")));
+    idChecked.add(13);
+    console.log("Checked IDs:", idChecked);
+    idChecked.forEach(element => {
+        document.getElementById(element).classList.add("clicked");
+    });
+    if (localStorage.getItem("bingo") != null) {
+        bingo = JSON.parse(localStorage.getItem("bingo"));
+    }
+}
+
+// ---- RAW CODE ----
+
+newGameButton.onclick = () => {
+    newGameConfirmation.show();
+}
+
+
+if (localStorage.getItem("bingoNumbers") != null && localStorage.getItem("bingoNumbers") != "[]") {
+    bingoNumbers = JSON.parse(localStorage.getItem("bingoNumbers"));
+    setGame();
+}
+else {
+    newGame();
+}
+
+
+gridItems.forEach(item => {
+    item.addEventListener('click', () => {
+        item.classList.toggle('clicked');
+        if (item.classList.contains('clicked')) {
+            idChecked.add(parseInt(item.id));
+            localStorage.setItem("bingoChecked", JSON.stringify(Array.from(idChecked)));
+            //console.log(idChecked);
+            if (checkBingo(item.id) && !bingo) {
+                myPopup.show();
+                bingo = true;
+                localStorage.setItem("bingo", JSON.stringify(bingo));
+            }
+        } else {
+            idChecked.delete(parseInt(item.id));
+            localStorage.setItem("bingoChecked", JSON.stringify(Array.from(idChecked)));
+        }
+    });
+});
+
+
