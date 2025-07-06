@@ -100,11 +100,19 @@ let checkBingoRecursive = (id, bingoCount, dir) => {
     // Check in the specified direction
     let nextId = parseInt(id) + parseInt(dir);
     //console.log("Next ID:", nextId, "hasId:", idChecked.has(nextId));
-    if (idChecked.has(nextId)) {
+    if (isLegalMove(id, nextId, dir) && idChecked.has(nextId)) {
         bingoCount.value = checkBingoRecursive(nextId, bingoCount, dir);
     }
     return bingoCount.value;
 };
+
+let isLegalMove = (id, nextId, dir) => {
+    // Check if the next ID is within bounds and not wrapping around the grid
+    if (nextId < 1 || nextId > 25) return false; // Out of bounds
+    if (id % 5 === 0 && (dir === RIGHT || dir === RUP || dir === RDOWN)) return false;
+    if (id % 5 === 1 && (dir === LEFT || dir === LUP || dir === LDOWN)) return false;
+    return true;
+}
 
 let newGame = () => {
     bingoNumbers = Array.from({ length: 30 }, (_, i) => i + 1);
