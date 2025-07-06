@@ -130,7 +130,7 @@ let setGame = () => {
 
     let index = 0;
     gridItems.forEach(element => {
-        element.src = "../images/" + bingoNumbers[index] + ".png";
+        element.src = "https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/" + bingoNumbers[index] + ".png";
         index++;
     });
 
