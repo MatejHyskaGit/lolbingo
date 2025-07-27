@@ -1,5 +1,7 @@
 let gridItems = document.querySelectorAll('.grid-item');
 const [UP, RIGHT, DOWN, LEFT, RUP, RDOWN, LUP, LDOWN] = [-5, 1, 5, -1, -4, 6, -6, 4];
+const TILE_AMOUNT = 25;
+
 //console.log(gridItems);
 const myPopup = new Popup({
     id: "bingoPopup",
@@ -60,6 +62,36 @@ const newGameConfirmation = new Popup({
     },
 });
 
+// ---- PRELOADING IMAGES ----
+
+let imageUrls = [];
+for (let index = 1; index < TILE_AMOUNT + 1; index++) {
+    imageUrls.push("https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/" + index + ".png");
+    imageUrls.push("https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/" + index + "_s.png");
+}
+
+const preloadedImages = {};
+
+function preloadImage(url) {
+  return new Promise((resolve, reject) => {
+    if (preloadedImages[url]) return resolve(preloadedImages[url]);
+
+    const img = new Image();
+    img.onload = () => {
+      preloadedImages[url] = img;
+      resolve(img);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+function preloadAllImages(urls) {
+  return Promise.all(urls.map(preloadImage));
+}
+
+
+// ---- BINGO LOGIC ----
 
 let checkBingo = (id) => {
     let bingoCount = { value: 1 }; // Use an object to hold the count
@@ -114,8 +146,10 @@ let isLegalMove = (id, nextId, dir) => {
     return true;
 }
 
+// ---- GAME SETUP ----
+
 let newGame = () => {
-    bingoNumbers = Array.from({ length: 25 }, (_, i) => i + 1);
+    bingoNumbers = Array.from({ length: TILE_AMOUNT }, (_, i) => i + 1);
 
     for (let i = 0; i < bingoNumbers.length; i++) {
         let rand = Math.floor(Math.random() * bingoNumbers.length);
@@ -160,6 +194,14 @@ let setGame = () => {
 }
 
 // ---- RAW CODE ----
+
+window.addEventListener('DOMContentLoaded', () => {
+    preloadAllImages(imageUrls).then(() => {
+        console.log("All images preloaded");
+    }).catch(err => {
+        console.error("Error preloading images:", err);
+    });
+});
 
 newGameButton.onclick = () => {
     newGameConfirmation.show();
