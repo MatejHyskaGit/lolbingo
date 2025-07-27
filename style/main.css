@@ -10,7 +10,7 @@ body{
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     aspect-ratio: 1 / 1;
-    width: 40vw;
+    width: 50vw;
     max-width: 80vmin;
     min-width: 30vw;
     margin: 0 auto;
@@ -66,8 +66,8 @@ img {
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(5, 1fr);
         aspect-ratio: 1 / 1;
-        width: 90vw;
-        min-width: 30vw;
+        width: 92vw;
+        min-width: 92vw;
         margin: 0 auto;
         height: auto;
         gap: 0.2rem;
