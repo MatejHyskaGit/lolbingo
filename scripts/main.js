@@ -138,9 +138,10 @@ let setGame = () => {
 
     let index = 0;
     gridItems.forEach(element => {
-        element.src = "https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/" + bingoNumbers[index] + ".png";
+        element.src = "https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/" + bingoNumbers[index] + "_s.png";
+        element.dataset.altSrc = element.src;
+        element.src = "https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/" + bingoNumbers[index] + ".png";
         element.dataset.origSrc = element.src;
-        element.dataset.altSrc = "https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/" + bingoNumbers[index] + "_s.png";
         index++;
     });
 
@@ -149,14 +150,13 @@ let setGame = () => {
     //console.log("Checked IDs:", idChecked);
     idChecked.forEach(element => {
         document.getElementById(element).classList.add("clicked");
+        if (element != 13) {
+            document.getElementById(element).src = document.getElementById(element).dataset.altSrc;
+        }
     });
     if (localStorage.getItem("bingo") != null) {
         bingo = JSON.parse(localStorage.getItem("bingo"));
     }
-}
-
-let setImage = (item, img) => {
-
 }
 
 // ---- RAW CODE ----
@@ -179,7 +179,7 @@ gridItems.forEach(item => {
     item.addEventListener('click', () => {
         item.classList.toggle('clicked');
         clickedImgId = item.src.split("/")[7].split(".")[0];
-        console.log("Image id: ", clickedImgId);
+        //console.log("Image id: ", clickedImgId);
         if (item.classList.contains('clicked')) {
             idChecked.add(parseInt(item.id));
             localStorage.setItem("bingoChecked", JSON.stringify(Array.from(idChecked)));
