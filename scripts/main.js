@@ -2,20 +2,18 @@ let gridItems = document.querySelectorAll('.grid-item');
 const [UP, RIGHT, DOWN, LEFT, RUP, RDOWN, LUP, LDOWN] = [-5, 1, 5, -1, -4, 6, -6, 4];
 const TILE_AMOUNT = 25;
 
+const mySwitch = document.getElementById('mySwitch');
+
+mySwitch.addEventListener('click', () => {
+  mySwitch.classList.toggle('active');
+});
+
 //console.log(gridItems);
 const myPopup = new Popup({
     id: "bingoPopup",
     title: "Bingo!",
     content: `
         Congratulations! You've got bingo!`
-});
-
-const newGameConfirmation1 = new Popup({
-    id: "newGamePopup",
-    title: "New Game Confirmation",
-    content: `Are you sure you want to start a new game?
-      {btn-red-button}[No]{btn-green-button}[Yes]`,
-
 });
 
 let bingo = false;
@@ -25,24 +23,34 @@ let newGameButton = document.getElementById("newGame");
 
 const newGameConfirmation = new Popup({
     id: "override",
-    title: "New Game Confirmation",
-    content: `Are you sure you want to start a new game?
-      custom-space-out big-margin§{btn-refuse-override}[No]{btn-accept-override}[Yes]`,
+    title: "Určitě chceš začít <br> novou hru?",
+    content: `custom-space-out big-margin§{btn-refuse-override}[...ne]{btn-accept-override}[ANO!]`,
     sideMargin: "1.5em",
     fontSizeMultiplier: "1.2",
     backgroundColor: "#FFFFFF",
     allowClose: false,
     css: `
+    button {
+        color: white;
+        border: none;
+        border-radius: 20em !important;
+        width: 7em !important;
+        font-size: 1.7em !important;
+        padding-top: 2% !important;
+    }
+    .popup-title {
+        margin-top: 1.5em;
+    }
     .popup.override .custom-space-out {
         display: flex;
         justify-content: center;
         gap: 1.5em;
     }
     .refuse-override{
-        background-color: #FFCCCC;
+        background-color: #2e282a;
     }
     .accept-override{
-        background-color: #CCFFCC;
+        background-color: #952c52;
     }`,
     loadCallback: () => {
         /* button functionality */

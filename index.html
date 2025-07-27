@@ -6,42 +6,57 @@
     <title>LoL Bingo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="style/main.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
+    * {
+        font-family: 'Coiny', cursive;
+    }
+    </style>
 </head>
 <body>
-    <img src="https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/Logo_alt.png" class="logo" draggable="false"></img>
-
-    <div class="grid-container">
-
-        <img class="grid-item" draggable="false" id="1"></img>
-        <img class="grid-item" draggable="false" id="2"></img>
-        <img class="grid-item" draggable="false" id="3"></img>
-        <img class="grid-item" draggable="false" id="4"></img>
-        <img class="grid-item" draggable="false" id="5"></img>
-        <img class="grid-item" draggable="false" id="6"></img>
-        <img class="grid-item" draggable="false" id="7"></img>
-        <img class="grid-item" draggable="false" id="8"></img>
-        <img class="grid-item" draggable="false" id="9"></img>
-        <img class="grid-item" draggable="false" id="10"></img>
-        <img class="grid-item" draggable="false" id="11"></img>
-        <img class="grid-item" draggable="false" id="12"></img>
-        <img class="freespace clicked" draggable="false" src="https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/Free.png" id="13"></img>
-        <img class="grid-item" draggable="false" id="14"></img>
-        <img class="grid-item" draggable="false" id="15"></img>
-        <img class="grid-item" draggable="false" id="16"></img>
-        <img class="grid-item" draggable="false" id="17"></img>
-        <img class="grid-item" draggable="false" id="18"></img>
-        <img class="grid-item" draggable="false" id="19"></img>
-        <img class="grid-item" draggable="false" id="20"></img>
-        <img class="grid-item" draggable="false" id="21"></img>
-        <img class="grid-item" draggable="false" id="22"></img>
-        <img class="grid-item" draggable="false" id="23"></img>
-        <img class="grid-item" draggable="false" id="24"></img>
-        <img class="grid-item" draggable="false" id="25"></img>
+    <img src="https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/Logo.png" class="logo" draggable="false"></img>
+    <div>
+        <div class="grid-container">
+            <img class="grid-item" draggable="false" id="1"></img>
+            <img class="grid-item" draggable="false" id="2"></img>
+            <img class="grid-item" draggable="false" id="3"></img>
+            <img class="grid-item" draggable="false" id="4"></img>
+            <img class="grid-item" draggable="false" id="5"></img>
+            <img class="grid-item" draggable="false" id="6"></img>
+            <img class="grid-item" draggable="false" id="7"></img>
+            <img class="grid-item" draggable="false" id="8"></img>
+            <img class="grid-item" draggable="false" id="9"></img>
+            <img class="grid-item" draggable="false" id="10"></img>
+            <img class="grid-item" draggable="false" id="11"></img>
+            <img class="grid-item" draggable="false" id="12"></img>
+            <img class="freespace clicked" draggable="false" src="https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/Free.png" id="13"></img>
+            <img class="grid-item" draggable="false" id="14"></img>
+            <img class="grid-item" draggable="false" id="15"></img>
+            <img class="grid-item" draggable="false" id="16"></img>
+            <img class="grid-item" draggable="false" id="17"></img>
+            <img class="grid-item" draggable="false" id="18"></img>
+            <img class="grid-item" draggable="false" id="19"></img>
+            <img class="grid-item" draggable="false" id="20"></img>
+            <img class="grid-item" draggable="false" id="21"></img>
+            <img class="grid-item" draggable="false" id="22"></img>
+            <img class="grid-item" draggable="false" id="23"></img>
+            <img class="grid-item" draggable="false" id="24"></img>
+            <img class="grid-item" draggable="false" id="25"></img>
+        </div>
+        <div class="switch-holder">
+            <img src="https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/wine_warning.png" class="wine">
+            <div class="switch" id="mySwitch">
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="d-flex justify-content-center my-3" style="position: absolute; left: 0; top: 0;">
-        <button id="newGame" class="btn">New Game</button>
-    </div>
+    <img id="newGame" class="btn" src="https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/NewGame.png" alt="New Game">
+
+
+    
+    
 
     <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
     <script src="scripts/main.js"></script>
