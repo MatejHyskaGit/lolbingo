@@ -115,7 +115,7 @@ let isLegalMove = (id, nextId, dir) => {
 }
 
 let newGame = () => {
-    bingoNumbers = Array.from({ length: 30 }, (_, i) => i + 1);
+    bingoNumbers = Array.from({ length: 25 }, (_, i) => i + 1);
 
     for (let i = 0; i < bingoNumbers.length; i++) {
         let rand = Math.floor(Math.random() * bingoNumbers.length);
