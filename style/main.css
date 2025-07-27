@@ -34,7 +34,7 @@ body{
 }
 .freespace{
     background-color: #f0f0f0;
-    border: 1px solid #4caf50;
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,14 +44,14 @@ body{
     font-size: 1rem;
 }
 .clicked:hover {
-    background-color: #d0ffd0;
-    border: 1px solid #4caf50;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
     cursor: default;
 }
 
 .clicked{
-    background-color: #d0ffd0;
-    border: 1px solid #4caf50;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
 }
 
 img {
