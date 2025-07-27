@@ -15,10 +15,10 @@ body{
     min-width: 30vw;
     margin: 0 auto;
     height: auto;
+    gap: 0.4rem;
 }
 .grid-item {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: #2e282a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,12 +29,11 @@ body{
 }
 
 .grid-item:hover {
-    background-color: #e0e0e0;
+    background-color: #2e282a;
     cursor: pointer;
 }
 .freespace{
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: #2e282a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,14 +43,12 @@ body{
     font-size: 1rem;
 }
 .clicked:hover {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: #2e282a;
     cursor: default;
 }
 
 .clicked{
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: #2e282a;
 }
 
 img {
@@ -73,5 +70,6 @@ img {
         min-width: 30vw;
         margin: 0 auto;
         height: auto;
+        gap: 0.2rem;
 }
 }
