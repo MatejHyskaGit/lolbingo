@@ -3,9 +3,15 @@ const [UP, RIGHT, DOWN, LEFT, RUP, RDOWN, LUP, LDOWN] = [-5, 1, 5, -1, -4, 6, -6
 const TILE_AMOUNT = 25;
 
 const mySwitch = document.getElementById('mySwitch');
+const logo = document.getElementsByClassName('logo')[0];
 
 mySwitch.addEventListener('click', () => {
   mySwitch.classList.toggle('active');
+    if (mySwitch.classList.contains('active')) {
+        logo.src = "https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/Logo_drunk.png";
+    } else {
+        logo.src = "https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/Logo.png";
+    }
 });
 
 //console.log(gridItems);
@@ -36,22 +42,36 @@ const newGameConfirmation = new Popup({
         border-radius: 20em !important;
         width: 7em !important;
         font-size: 1.7em !important;
-        padding-top: 2% !important;
+        margin: 0.5em !important;
+        padding: 0 !important;
+        font-size: 2em !important;
     }
     .popup-title {
         margin-top: 1.5em;
+        margin-bottom: -1em;
+        line-height: 1em;
     }
     .popup.override .custom-space-out {
         display: flex;
         justify-content: center;
-        gap: 1.5em;
     }
     .refuse-override{
         background-color: #2e282a;
     }
     .accept-override{
         background-color: #952c52;
-    }`,
+        padding-top: 0.1em !important;
+    } 
+    .popup-body:last-child {
+        margin-bottom: 0 !important;
+    } 
+    @media (max-width: 768px) {
+    button {
+        font-size: 1.6em !important;
+        margin-top: 1em !important;
+    }
+}
+}`,
     loadCallback: () => {
         /* button functionality */
         document.getElementsByClassName("refuse-override")[0].onclick =
@@ -73,6 +93,8 @@ const newGameConfirmation = new Popup({
 // ---- PRELOADING IMAGES ----
 
 let imageUrls = [];
+imageUrls.push("https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/Logo.png");
+imageUrls.push("https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/Logo_drunk.png");
 for (let index = 1; index < TILE_AMOUNT + 1; index++) {
     imageUrls.push("https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/" + index + ".png");
     imageUrls.push("https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/" + index + "_s.png");
