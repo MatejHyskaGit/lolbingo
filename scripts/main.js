@@ -10,7 +10,7 @@ mySwitch.addEventListener('click', () => {
     if (mySwitch.classList.contains('active')) {
         logo.src = "https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/Logo_drunk.png";
     } else {
-        logo.src = "https://cdn.jsdelivr.net/gh/MatejHyskaGit/lolbingo@master/images/Logo.png";
+        logo.src = "https://raw.githubusercontent.com/MatejHyskaGit/lolbingo/master/images/Logo.png";
     }
 });
 
